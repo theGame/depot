@@ -1,0 +1,14 @@
+<!-- <p id="notice"><%= notice %></p>
+
+
+<%= link_to 'Edit', edit_card_path(@card) %> |
+<%= link_to 'Back', cards_path %> -->
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+<h2>Your Pragmatic Card</h2>
+<ul>
+	<% @card.line_items.each do |item| %>
+	<li><%= item.product.title %></li>
+	<% end %>
+</ul>
