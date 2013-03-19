@@ -42,11 +42,11 @@ class LineItemsController < ApplicationController
   def create
     @card = current_card
     product = Product.find(params[:product_id])
-    @line_item = @card.line_items.build(product: product)
+    @line_item = @card.add_product(product.id)
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.card, notice: 'Line item was successfully created.' }
+        format.html { redirect_to @line_item.card }
         format.json { render json: @line_item, status: :created, location: @line_item }
       else
         format.html { render action: "new" }

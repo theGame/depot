@@ -41,7 +41,8 @@ class CardsControllerTest < ActionController::TestCase
 
   test "should destroy card" do
     assert_difference('Card.count', -1) do
-      delete :destroy, id: @card
+      session[:card_id] = @card.id
+      delete :destroy, id: @card.to_param
     end
 
     assert_redirected_to cards_path

@@ -13,12 +13,17 @@ class CardsController < ApplicationController
   # GET /cards/1
   # GET /cards/1.json
   def show
-    @card = Card.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @card }
-    end
+    begin 
+      @card = Card.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        logger.error "You dont have access #{params[:id]}"  
+        redirect_to store_url, notice: 'no such basket'
+      else
+        respond_to do |format|
+          format.html # show.html.erb
+          format.json { render json: @card }
+      end
+    end   
   end
 
   # GET /cards/new
@@ -72,12 +77,12 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.json
   def destroy
-    @card = Card.find(params[:id])
+    @card = current_card
     @card.destroy
-
+    session[:card_id] = nil
     respond_to do |format|
-      format.html { redirect_to cards_url }
-      format.json { head :no_content }
+      format.html { redirect_to cards_url, notice: 'The trash is empty' }
+      format.json { head :ok }
     end
   end
 end

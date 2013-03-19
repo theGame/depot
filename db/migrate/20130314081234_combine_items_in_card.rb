@@ -1,0 +1,24 @@
+class CombineItemsInCard < ActiveRecord::Migration
+  def up
+    Card.all.each do |card|
+      
+      sums = card.line_items.group(:product_id).sum(:quantity)
+      
+      sums.each do |product_id, quantity|
+        if quantity > 1
+          card.line_items.where(product_id: product_id).delete_all
+          card.line_items.create(product_id: product_id, quantity: quantity)
+        end
+      end
+    end
+  end
+  def down
+    LineItem.where("quantity > 1").each do |line_item|
+      line_item.quantity.times do 
+        LineItem.create card_id: line_item.card_id,
+        product_id: line_item.product_id, quantity: 1
+      end
+      line_item.destroy
+    end
+  end
+end
