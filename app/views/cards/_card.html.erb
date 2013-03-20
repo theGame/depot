@@ -1,0 +1,12 @@
+<% unless card.line_items.empty? %>
+<div class="card_title">Your Card</div>
+<table>
+	<%= render(card.line_items) %>
+	<tr class="total_line">
+		<td colspan="2">Total</td>
+		<td class="total_cell"><%= number_to_currency(card.total_price) %></td>
+	</tr>
+</table>
+<%= button_to 'Checkout', new_order_path, method: :get %>
+<%= button_to 'Empty card', card, method: :delete, confirm: 'Are you sure?' %>
+<% end %>

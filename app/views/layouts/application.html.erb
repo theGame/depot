@@ -13,6 +13,14 @@
 	</div>
 	<div id="columns">
 		<div id="side">
+			<div id="card">
+				<% if @card %>
+					<%= hidden_div_if(@card.line_items.empty?, id: 'card') do %>
+					<%= render @card %>
+					<% end %>
+				<% end %>
+			</div>
+			
 			<ul>
 				<li><a href="#">Home</a></li>
 				<li><a href="#">Questions</a></li>

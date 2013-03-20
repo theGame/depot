@@ -81,7 +81,7 @@ class CardsController < ApplicationController
     @card.destroy
     session[:card_id] = nil
     respond_to do |format|
-      format.html { redirect_to cards_url, notice: 'The trash is empty' }
+      format.html { redirect_to store_url }
       format.json { head :ok }
     end
   end
