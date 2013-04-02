@@ -37,3 +37,5 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 gem 'will_paginate', '~> 3.0' 
+gem 'actionmailer'
+gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'

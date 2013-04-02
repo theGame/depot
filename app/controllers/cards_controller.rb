@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+    skip_before_filter :autorize, only: [:create, :update, :destroy]
+    
   # GET /cards
   # GET /cards.json
   def index
